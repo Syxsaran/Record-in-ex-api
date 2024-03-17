@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,24 +20,26 @@ import java.util.Map;
 
 public class AddActivity extends AppCompatActivity {
 
-
-    EditText name,date,type,lurl;
-    Button btnAdd,btnBack;
+    EditText name, date, amount;
+    Button btnAdd, btnBack;
+    Spinner spinnerType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        name = (EditText)findViewById(R.id.txtlocationname);
-        date = (EditText)findViewById(R.id.txtdate);
-        type = (EditText)findViewById(R.id.txttype);
-        lurl = (EditText)findViewById(R.id.txtImageUrl);
+        name = findViewById(R.id.txtname);
+        date = findViewById(R.id.txtdate);
+        amount = findViewById(R.id.txtamount);
+        btnAdd = findViewById(R.id.btnAdd);
+        btnBack = findViewById(R.id.btnBack);
+        spinnerType = findViewById(R.id.spinnerType);
 
-        btnAdd = (Button)findViewById(R.id.btnAdd);
-        btnBack = (Button)findViewById(R.id.btnBack);
-
-
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.type_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerType.setAdapter(adapter);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,17 +55,15 @@ public class AddActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 
-    private void insertData(){
-
+    private void insertData() {
+        int amountValue = Integer.parseInt(amount.getText().toString());
         Map<String,Object> map = new HashMap<>();
-        map.put("name",name.getText().toString());
-        map.put("date",date.getText().toString());
-        map.put("type",type.getText().toString());
-        map.put("lurl",lurl.getText().toString());
+        map.put("name", name.getText().toString());
+        map.put("date", date.getText().toString());
+        map.put("type", spinnerType.getSelectedItem().toString());
+        map.put("amount", amountValue);
 
         FirebaseDatabase.getInstance().getReference().child("location").push()
                 .setValue(map)
@@ -77,19 +79,12 @@ public class AddActivity extends AppCompatActivity {
                         Toast.makeText(AddActivity.this,"Error",Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 
-    private void clearAll(){
-
+    private void clearAll() {
         name.setText("");
         date.setText("");
-        type.setText("");
-        lurl.setText("");
-
-
+        amount.setText("");
+        spinnerType.setSelection(0); // ให้ Spinner เลือกตำแหน่งแรก
     }
-
-
-
 }

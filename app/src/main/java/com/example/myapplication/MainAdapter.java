@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
      *
      * @param options
      */
+
     public MainAdapter(@NonNull FirebaseRecyclerOptions<MainModel> options) {
         super(options);
     }
@@ -43,51 +46,49 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
         holder.name.setText(model.getName());
         holder.date.setText(model.getDate());
         holder.type.setText(model.getType());
-
-
-        Glide.with(holder.img.getContext())
-                .load(model.getLurl())
-                .placeholder(com.firebase.ui.database.R.drawable.common_google_signin_btn_icon_dark)
-                .circleCrop()
-                .error(com.firebase.ui.database.R.drawable.common_google_signin_btn_icon_dark_normal)
-                .into(holder.img);
+        holder.amount.setText(model.getAmount() + " bath");
 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final DialogPlus dialogPlus = DialogPlus.newDialog(holder.img.getContext())
+                final DialogPlus dialogPlus = DialogPlus.newDialog(holder.name.getContext())
                         .setContentHolder(new ViewHolder(R.layout.update_popup))
                         .setExpanded(true, 1200)
                         .create();
 
-                //dialogPlus.show();
-
                 View view = dialogPlus.getHolderView();
 
-                EditText name = view.findViewById(R.id.txtlocationname);
+                EditText name = view.findViewById(R.id.txtname);
                 EditText date = view.findViewById(R.id.txtdate);
-                EditText type = view.findViewById(R.id.txttype);
-                EditText lurl = view.findViewById(R.id.txtImageUrl);
+                Spinner spinnerType = view.findViewById(R.id.spinnerType); // เปลี่ยน EditText เป็น Spinner
+                EditText amount = view.findViewById(R.id.txtamount);
 
                 Button btnUpdate = view.findViewById(R.id.btnUpdate);
 
+                // ตั้งค่า Spinner โดยใช้ข้อมูลจาก MainModel
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(holder.name.getContext(),
+                        R.array.type_array, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerType.setAdapter(adapter);
+                int typePosition = adapter.getPosition(model.getType()); // หาตำแหน่งของประเภทใน Spinner
+                spinnerType.setSelection(typePosition); // เลือกประเภทใน Spinner ตามตำแหน่งที่หาได้
+
                 name.setText(model.getName());
                 date.setText(model.getDate());
-                type.setText(model.getType());
-                lurl.setText(model.getLurl());
+                amount.setText(String.valueOf(model.getAmount()));
 
                 dialogPlus.show();
 
                 btnUpdate.setOnClickListener(new View.OnClickListener() {
-
                     @Override
                     public void onClick(View v) {
+                        int amountValue = Integer.parseInt(amount.getText().toString());
 
-                        Map<String,Object> map = new HashMap<>();
-                        map.put("name",name.getText().toString());
-                        map.put("date",date.getText().toString());
-                        map.put("type",type.getText().toString());
-                        map.put("lurl",lurl.getText().toString());
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("name", name.getText().toString());
+                        map.put("date", date.getText().toString());
+                        map.put("type", spinnerType.getSelectedItem().toString()); // ใช้ Spinner แทน EditText
+                        map.put("amount", amountValue);
 
                         FirebaseDatabase.getInstance().getReference().child("location")
                                 .child(getRef(position).getKey()).updateChildren(map)
@@ -97,7 +98,6 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
                                         Toast.makeText(holder.name.getContext(), "Data Update Successfully", Toast.LENGTH_SHORT).show();
                                         dialogPlus.dismiss();
                                     }
-
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -105,14 +105,9 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
                                         Toast.makeText(holder.name.getContext(), "Error Update", Toast.LENGTH_SHORT).show();
                                         dialogPlus.dismiss();
                                     }
-
                                 });
-
                     }
-
                 });
-
-
             }
         });
 
@@ -134,15 +129,14 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(holder.name.getContext(),"Canceled",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(holder.name.getContext(), "Canceled", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.show();
-
             }
         });
-
     }
+
 
     @NonNull
     @Override
@@ -154,18 +148,17 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
     class myViewHolder extends RecyclerView.ViewHolder{
 
         CircleImageView img;
-        TextView name,date,type;
+        TextView name,date,type,amount;
 
         Button btnEdit,btnDelete;
 
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
-            img = (CircleImageView)itemView.findViewById(R.id.img1);
             name = (TextView)itemView.findViewById(R.id.nametext);
             date = (TextView)itemView.findViewById(R.id.datetext);
             type = (TextView)itemView.findViewById(R.id.typetext);
-
+            amount = (TextView)itemView.findViewById(R.id.amounttext);
 
             btnEdit = (Button)itemView.findViewById(R.id.btnEdit);
             btnDelete = (Button)itemView.findViewById(R.id.btnDelete);

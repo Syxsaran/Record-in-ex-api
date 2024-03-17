@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Travel Journal</string>
+    <string name="app_name">Record income and expenses</string>
+    <string-array name="type_array">
+        <item>income</item>
+        <item>expenses</item>
+    </string-array>
 </resources>

@@ -11,9 +11,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Add Location"
+        android:text="Add Record"
         android:gravity="center"
         android:background="@color/purple_500"
+        android:backgroundTint="#236C16"
         android:textSize="25dp"
         android:textColor="#FFF"/>
 
@@ -24,7 +25,7 @@
         android:textSize="20dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
-        android:text="Location Name"/>
+        android:text="Record Name"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/rounded"
         android:gravity="center"
-        android:id="@+id/txtlocationname"/>
+        android:id="@+id/txtname"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -63,14 +64,14 @@
         android:layout_marginBottom="5dp"
         android:text="Type"/>
 
-    <EditText
+    <Spinner
+        android:id="@+id/spinnerType"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/rounded"
-        android:gravity="center"
-        android:id="@+id/txttype"/>
+        android:gravity="center"/>
 
 
     <TextView
@@ -80,7 +81,7 @@
         android:textSize="20dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
-        android:text="Image Url"/>
+        android:text="Amount"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -89,7 +90,7 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/rounded"
         android:gravity="center"
-        android:id="@+id/txtImageUrl"/>
+        android:id="@+id/txtamount"/>
 
     <Button
         android:layout_width="match_parent"
@@ -100,7 +101,7 @@
         android:text="Add"
         android:textSize="21dp"
         android:textAllCaps="false"
-        android:background="@drawable/rounded"
+        android:backgroundTint="#236C16"
         android:gravity="center"
         android:id="@+id/btnAdd"
         android:visibility="visible" />

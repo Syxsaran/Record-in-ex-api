@@ -10,25 +10,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:background="@drawable/border">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:srcCompat="@drawable/ic_launcher_background"
-            android:id="@+id/img1"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#FF000000"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/nametext"
-            android:text="locarion Name"
+            android:text="Record Name"
             android:textStyle="bold"
             android:textSize="25dp"
             android:textColor="#000"
-            android:layout_toRightOf="@id/img1"
             android:layout_marginLeft="10dp"/>
 
         <TextView
@@ -38,7 +31,6 @@
             android:text="Date"
             android:textSize="25dp"
             android:textColor="#000"
-            android:layout_toRightOf="@id/img1"
             android:layout_below="@+id/nametext"
             android:layout_marginLeft="10dp"/>
 
@@ -49,15 +41,27 @@
             android:text="Type"
             android:textSize="25dp"
             android:textColor="#000"
-            android:layout_toRightOf="@id/img1"
             android:layout_below="@+id/datetext"
             android:layout_marginLeft="10dp"/>
 
-        <LinearLayout
-            android:layout_below="@+id/typetext"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:id="@+id/amounttext"
+            android:text="Amount"
+            android:textSize="25dp"
+            android:textColor="#000"
+            android:layout_below="@+id/typetext"
+            android:layout_marginLeft="10dp"
+        />
+
+
+        <LinearLayout
+            android:layout_below="@+id/amounttext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
 
             <Button
                 android:layout_width="173dp"
@@ -66,6 +70,7 @@
                 android:textAllCaps="false"
                 android:layout_marginRight="5dp"
                 android:id="@+id/btnEdit"
+                android:backgroundTint="#62799C"
                 />
 
             <Button
@@ -75,6 +80,7 @@
                 android:textAllCaps="false"
                 android:layout_marginLeft="5dp"
                 android:id="@+id/btnDelete"
+                android:backgroundTint="#FF2222"
                 />
 
         </LinearLayout>

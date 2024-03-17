@@ -2,19 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:orientation="vertical"
-
-    >
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Update Details"
         android:gravity="center"
-        android:background="@color/purple_500"
+        android:background="#62799C"
         android:textSize="25dp"
-        android:textColor="#FFF"/>
+        android:textColor="#FFF" />
 
     <TextView
         android:layout_width="match_parent"
@@ -23,8 +20,8 @@
         android:textSize="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="Location Name"/>
-    
+        android:text="Record Name" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="35dp"
@@ -32,7 +29,7 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/rounded"
         android:gravity="center"
-        android:id="@+id/txtlocationname"/>
+        android:id="@+id/txtname" />
 
     <TextView
         android:layout_width="match_parent"
@@ -41,7 +38,7 @@
         android:textSize="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="Date"/>
+        android:text="Date" />
 
     <EditText
         android:layout_width="match_parent"
@@ -50,8 +47,7 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/rounded"
         android:gravity="center"
-        android:id="@+id/txtdate"/>
-
+        android:id="@+id/txtdate" />
 
     <TextView
         android:layout_width="match_parent"
@@ -60,17 +56,16 @@
         android:textSize="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="Type"/>
+        android:text="Type" />
 
-    <EditText
+    <Spinner
+        android:id="@+id/spinnerType"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/rounded"
-        android:gravity="center"
-        android:id="@+id/txttype"/>
-
+        android:gravity="center" />
 
     <TextView
         android:layout_width="match_parent"
@@ -79,7 +74,7 @@
         android:textSize="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:text="Image Url"/>
+        android:text="Amount" />
 
     <EditText
         android:layout_width="match_parent"
@@ -88,7 +83,7 @@
         android:layout_marginRight="10dp"
         android:background="@drawable/rounded"
         android:gravity="center"
-        android:id="@+id/txtImageUrl"/>
+        android:id="@+id/txtamount" />
 
     <Button
         android:layout_width="match_parent"
@@ -99,9 +94,10 @@
         android:text="Update"
         android:textSize="21dp"
         android:textAllCaps="false"
-        android:background="@drawable/rounded"
+        android:backgroundTint="#62799C"
         android:gravity="center"
         android:id="@+id/btnUpdate"
-        android:visibility="visible" />
+        android:visibility="visible"
+        />
 
 </LinearLayout>

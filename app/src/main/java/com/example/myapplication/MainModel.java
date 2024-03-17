@@ -1,18 +1,19 @@
 package com.example.myapplication;
 
 public class MainModel {
-    String name,date,type,lurl;
+    String name, date, type;
+    int amount;
 
 
     MainModel(){
 
 
     }
-    public MainModel(String name, String date, String type, String lurl) {
+    public MainModel(String name, String date, String type, int amount) {
         this.name = name;
         this.date = date;
         this.type = type;
-        this.lurl = lurl;
+        this.amount = amount;
     }
 
     public String getName() {
@@ -39,11 +40,11 @@ public class MainModel {
         this.type = type;
     }
 
-    public String getLurl() {
-        return lurl;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setLurl(String lurl) {
-        this.lurl = lurl;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }
