@@ -43,9 +43,17 @@
 
    ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/bd7d0b4c-08a8-48b5-988a-85643da67864)
 
-8.หน้าต่าง Delete ข้อมูลรายการที่เลือก
+8.กดปุ่ม Update เพื่อทำการ Update ข้อมูลที่เลือก
+
+   ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/0439b266-a040-4c49-9e4b-a3432d8dafd0)
+
+9.หน้าต่าง Delete ข้อมูลรายการที่เลือก
 
    ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/ecd70a7f-8906-48b6-bbf8-0525381afb39)
+
+10.กดปุ่ม Delete เพื่อทำการ Delete ข้อมูลที่เลือก
+
+   ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/883d7274-2f45-4c98-8e7b-13c204e46642)
 
 
 ## ผู้พัฒนา
