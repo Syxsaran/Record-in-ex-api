@@ -68,3 +68,6 @@
 ## ลิงก์ที่ใช้งาน
 - [Firebase Realtime Database](https://firebaseopensource.com/projects/firebase/firebaseui-android/database/readme/) - บน Firebase
 - [Glide](https://github.com/bumptech/glide.git) - บน GitHub
+
+##  อ้างอิงแหล่งข้อมูล
+- [BTech Days](https://www.youtube.com/watch?v=cnx6c8zSsSQ&list=PLdRq0mbeEBmzaKvIbEX-n0VZwStsA0pv-)- บน Youtube
