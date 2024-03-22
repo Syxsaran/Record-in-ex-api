@@ -16,7 +16,8 @@
 ## วิธีการใช้
 1. เพิ่มรายการรายรับหรือรายจ่ายโดยคลิกที่ปุ่ม "Add" บนหน้าหลัก
    
-   ![Add Button](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/943f1ccb-7a3a-4cbd-adf6-a5ed8492ccc2)
+   ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/f2e336f1-4832-4071-be0c-ca415b0e03c1)
+
 
 3. กรอกข้อมูลที่จำเป็น เช่น ชื่อรายการ เงินจำนวนเป็นต้น
 4. กดปุ่ม "Save" เพื่อบันทึกข้อมูล
