@@ -17,7 +17,7 @@
 
 1.ภาพต่อไปนี้คือภาพของหน้าหลักของโปรแกรม
 
-   ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/298fd488-5f70-4a41-97e0-4592f0069f86)
+   ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/5394139b-f5ff-4270-a4db-1a2fca6e9143)
 
 
 2. เพิ่มรายการรายรับหรือรายจ่ายโดยคลิกที่ปุ่ม + บนหน้าหลัก
