@@ -19,17 +19,14 @@
 
    ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/5394139b-f5ff-4270-a4db-1a2fca6e9143)
 
-
 2. เพิ่มรายการรายรับหรือรายจ่ายโดยคลิกที่ปุ่ม + บนหน้าหลัก
    
    ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/f2e336f1-4832-4071-be0c-ca415b0e03c1)
-
 
 3. กรอกข้อมูลที่จำเป็น คือ ชื่อรายการ เงินจำนวน เลือกวันเดือนปี ประเภท
 
    ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/0255173f-b74b-4951-bb44-839c60f79209)
 
-   
 4. กดปุ่ม "Add" เพื่อบันทึกข้อมูล
 
    ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/6470c88b-df3c-45b3-b5e4-9dfab13c1ed4)
@@ -42,7 +39,14 @@
 
    ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/cef7f557-3a63-4083-8999-3bd592d455c8)
 
-   
+7.หน้าต่าง Edit ข้อมูลรายการที่เลือก
+
+   ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/bd7d0b4c-08a8-48b5-988a-85643da67864)
+
+8.หน้าต่าง Delete ข้อมูลรายการที่เลือก
+
+   ![image](https://github.com/Syxsaran/Record-in-ex-api/assets/96071669/ecd70a7f-8906-48b6-bbf8-0525381afb39)
+
 
 ## ผู้พัฒนา
 โปรแกรมนี้ถูกพัฒนาโดยนักศึกษา ตามรายละเอียดด้านล่าง:
