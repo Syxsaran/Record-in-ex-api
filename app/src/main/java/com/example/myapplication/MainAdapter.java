@@ -1,12 +1,14 @@
 package com.example.myapplication;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,7 +26,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.orhanobut.dialogplus.DialogPlus;
 import com.orhanobut.dialogplus.ViewHolder;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -60,21 +65,30 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
 
                 EditText name = view.findViewById(R.id.txtname);
                 EditText date = view.findViewById(R.id.txtdate);
-                Spinner spinnerType = view.findViewById(R.id.spinnerType); // เปลี่ยน EditText เป็น Spinner
+                Spinner spinnerType = view.findViewById(R.id.spinnerType);
                 EditText amount = view.findViewById(R.id.txtamount);
 
                 Button btnUpdate = view.findViewById(R.id.btnUpdate);
 
-                // ตั้งค่า Spinner โดยใช้ข้อมูลจาก MainModel
+                // Set the existing date text to the date EditText
+                date.setText(model.getDate());
+
+                // Set OnClickListener for selecting date
+                date.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showDatePickerDialog(date);
+                    }
+                });
+
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(holder.name.getContext(),
                         R.array.type_array, android.R.layout.simple_spinner_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerType.setAdapter(adapter);
-                int typePosition = adapter.getPosition(model.getType()); // หาตำแหน่งของประเภทใน Spinner
-                spinnerType.setSelection(typePosition); // เลือกประเภทใน Spinner ตามตำแหน่งที่หาได้
+                int typePosition = adapter.getPosition(model.getType());
+                spinnerType.setSelection(typePosition);
 
                 name.setText(model.getName());
-                date.setText(model.getDate());
                 amount.setText(String.valueOf(model.getAmount()));
 
                 dialogPlus.show();
@@ -87,7 +101,7 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
                         Map<String, Object> map = new HashMap<>();
                         map.put("name", name.getText().toString());
                         map.put("date", date.getText().toString());
-                        map.put("type", spinnerType.getSelectedItem().toString()); // ใช้ Spinner แทน EditText
+                        map.put("type", spinnerType.getSelectedItem().toString());
                         map.put("amount", amountValue);
 
                         FirebaseDatabase.getInstance().getReference().child("location")
@@ -138,6 +152,7 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
     }
 
 
+
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -165,4 +180,31 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
 
         }
     }
+
+    // Method to show DatePickerDialog
+    private void showDatePickerDialog(EditText dateEditText) {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(dateEditText.getContext(),
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH, monthOfYear);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                        // Format the selected date and set it to the date EditText
+                        String myFormat = "dd/MM/yyyy";
+                        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+                        dateEditText.setText(sdf.format(calendar.getTime()));
+                    }
+                }, year, month, day);
+
+        // Show the DatePickerDialog
+        datePickerDialog.show();
+    }
+
 }
