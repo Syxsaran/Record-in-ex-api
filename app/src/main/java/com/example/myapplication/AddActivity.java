@@ -37,23 +37,21 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
-
+        // อ้างอิงไปยัง
         name = findViewById(R.id.txtname);
         date = findViewById(R.id.txtdate);
         amount = findViewById(R.id.txtamount);
         btnAdd = findViewById(R.id.btnAdd);
         spinnerType = findViewById(R.id.spinnerType);
-
+        // กำหนดการทำงานเมื่อคลิกปุ่ม Floating Action Button
         floatingActionButton2 = findViewById(R.id.floatingActionButton2);
-
         floatingActionButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
-
-
+        // กำหนด Adapter สำหรับ Spinner เพื่อให้ผู้ใช้เลือกประเภทรายการ (รายรับหรือรายจ่าย)
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.type_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -65,18 +63,16 @@ public class AddActivity extends AppCompatActivity {
                 showDatePickerDialog();
             }
         });
-
-
+        // กำหนดการทำงานเมื่อคลิกที่ปุ่มเพิ่มรายการ
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertData();
-                clearAll();
+                insertData(); // เพิ่มข้อมูลลงในฐานข้อมูล Firebase
+                clearAll(); // ล้างข้อมูลทั้งหมดในฟอร์ม
             }
         });
-
-
     }
+    // แสดงกล่องเลือกวันที่เมื่อคลิกที่ EditText วันที่
     private void showDatePickerDialog() {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -96,6 +92,7 @@ public class AddActivity extends AppCompatActivity {
                 year, month, dayOfMonth);
         datePickerDialog.show();
     }
+    // เพิ่มข้อมูลลงในฐานข้อมูล Firebase
     private void insertData() {
         int amountValue = Integer.parseInt(amount.getText().toString());
         Map<String,Object> map = new HashMap<>();
@@ -103,7 +100,7 @@ public class AddActivity extends AppCompatActivity {
         map.put("date", date.getText().toString());
         map.put("type", spinnerType.getSelectedItem().toString());
         map.put("amount", amountValue);
-
+        // ทำการเพิ่มข้อมูลลงใน Firebase Realtime Database
         FirebaseDatabase.getInstance().getReference().child("record").push()
                 .setValue(map)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -119,7 +116,7 @@ public class AddActivity extends AppCompatActivity {
                     }
                 });
     }
-
+    // ล้างข้อมูลทั้งหมดในฟอร์ม
     private void clearAll() {
         name.setText("");
         date.setText("");

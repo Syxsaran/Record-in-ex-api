@@ -28,43 +28,41 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     MainAdapter mainAdapter;
     FloatingActionButton floatingActionButton;
-    TextView tvItemCount, tvTotalIncome, tvTotalExpense, tvBalance; // เพิ่ม TextView สำหรับแสดงยอดเงินคงเหลือ
+    TextView tvItemCount, tvTotalIncome, tvTotalExpense, tvBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        // กำหนด LayoutManager ให้กับ RecyclerView
         recyclerView = findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        // อ้างอิง TextView ที่ใช้แสดงข้อมูลเกี่ยวกับยอดรวมรายการ รายรับ รายจ่าย และยอดคงเหลือ
         tvItemCount = findViewById(R.id.tvItemCount);
         tvTotalIncome = findViewById(R.id.tvTotalIncome);
         tvTotalExpense = findViewById(R.id.tvTotalExpense);
-        tvBalance = findViewById(R.id.tvBalance); // อ้างอิง TextView สำหรับแสดงยอดเงินคงเหลือ
-
+        tvBalance = findViewById(R.id.tvBalance);
+        // คำนวณและแสดงรวมรายการ รายรับ และรายจ่าย และยอดคงเหลือ
         calculateTotalIncomeAndExpense();
-
+        // กำหนดค่า FirebaseRecyclerOptions และสร้าง Adapter สำหรับ RecyclerView
         FirebaseRecyclerOptions<MainModel> options =
                 new FirebaseRecyclerOptions.Builder<MainModel>()
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("record"), MainModel.class)
                         .build();
-
         mainAdapter = new MainAdapter(options);
         recyclerView.setAdapter(mainAdapter);
-
+        // กำหนดการทำงานเมื่อผู้ใช้คลิกปุ่ม FloatingActionButton
         floatingActionButton = findViewById(R.id.floatingActionButton);
-
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), AddActivity.class));
             }
         });
-
+        // นับจำนวนรวมของรายการทั้งหมด
         countTotalItems();
     }
-
+    // นับจำนวนรวมของรายการทั้งหมดและแสดงผลบน TextView
     private void countTotalItems() {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
@@ -81,14 +79,13 @@ public class MainActivity extends AppCompatActivity {
         };
         FirebaseDatabase.getInstance().getReference().child("record").addValueEventListener(valueEventListener);
     }
-
+    // คำนวณและแสดงรวมรายรับ และรายจ่าย และยอดคงเหลือ
     private void calculateTotalIncomeAndExpense() {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 long totalIncome = 0;
                 long totalExpense = 0;
-
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     MainModel model = snapshot.getValue(MainModel.class);
                     if (model != null) {
@@ -100,45 +97,39 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }
-
                 String totalIncomeText = "Total Income: " + totalIncome + " bath";
                 String totalExpenseText = "Total Expenses: " + totalExpense + " bath";
                 tvTotalIncome.setText(totalIncomeText);
                 tvTotalExpense.setText(totalExpenseText);
-
                 long balance = totalIncome - totalExpense;
                 String balanceText = "Balance: " + balance + " bath";
-                tvBalance.setText(balanceText); // แสดงยอดเงินคงเหลือ
+                tvBalance.setText(balanceText);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.e(TAG, "Error fetching data", databaseError.toException());
             }
         };
-
         FirebaseDatabase.getInstance().getReference().child("record").addValueEventListener(valueEventListener);
     }
-
-
+    // เมื่อ Activity ได้สร้างและแสดงผลบนหน้าจอแล้ว เริ่มต้นการอัปเดตข้อมูลใน Adapter
     @Override
     protected void onStart() {
         super.onStart();
         mainAdapter.startListening();
     }
-
+    // เมื่อ Activity หยุดทำงาน หยุดการอัปเดตข้อมูลใน Adapter
     @Override
     protected void onStop() {
         super.onStop();
         mainAdapter.stopListening();
     }
-
+    // สร้างเมนูค้นหาและตั้งค่าการค้นหาข้อมูล
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) item.getActionView();
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -155,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
+    // ค้นหาข้อมูลจากฐานข้อมูล Firebase และอัปเดตข้อมูลใน RecyclerView
     private void txtsearch(String str) {
         FirebaseRecyclerOptions<MainModel> options =
                 new FirebaseRecyclerOptions.Builder<MainModel>()

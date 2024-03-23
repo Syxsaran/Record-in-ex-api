@@ -4,18 +4,17 @@ public class MainModel {
     String name, date, type;
     int amount;
 
-
     MainModel(){
 
-
     }
+    //Constructor ที่ใช้ในการกำหนดค่าของแต่ละฟิลด์ของอ็อบเจกต์
     public MainModel(String name, String date, String type, int amount) {
         this.name = name;
         this.date = date;
         this.type = type;
         this.amount = amount;
     }
-
+    //Getters และ Setters สำหรับการเข้าถึงและกำหนดค่าของแต่ละฟิลด์
     public String getName() {
         return name;
     }
