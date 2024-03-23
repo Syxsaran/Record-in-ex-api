@@ -104,7 +104,7 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
                         map.put("type", spinnerType.getSelectedItem().toString());
                         map.put("amount", amountValue);
 
-                        FirebaseDatabase.getInstance().getReference().child("location")
+                        FirebaseDatabase.getInstance().getReference().child("record")
                                 .child(getRef(position).getKey()).updateChildren(map)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -135,7 +135,7 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        FirebaseDatabase.getInstance().getReference().child("location")
+                        FirebaseDatabase.getInstance().getReference().child("record")
                                 .child(getRef(position).getKey()).removeValue();
                         Toast.makeText(holder.name.getContext(), "Deleted", Toast.LENGTH_SHORT).show();
                     }

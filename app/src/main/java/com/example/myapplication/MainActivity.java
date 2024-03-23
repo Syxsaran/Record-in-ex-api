@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseRecyclerOptions<MainModel> options =
                 new FirebaseRecyclerOptions.Builder<MainModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("location"), MainModel.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("record"), MainModel.class)
                         .build();
 
         mainAdapter = new MainAdapter(options);
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "Error fetching data", databaseError.toException());
             }
         };
-        FirebaseDatabase.getInstance().getReference().child("location").addValueEventListener(valueEventListener);
+        FirebaseDatabase.getInstance().getReference().child("record").addValueEventListener(valueEventListener);
     }
 
     private void calculateTotalIncomeAndExpense() {
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        FirebaseDatabase.getInstance().getReference().child("location").addValueEventListener(valueEventListener);
+        FirebaseDatabase.getInstance().getReference().child("record").addValueEventListener(valueEventListener);
     }
 
 
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 new FirebaseRecyclerOptions.Builder<MainModel>()
                         .setQuery(
                                 FirebaseDatabase.getInstance().getReference()
-                                        .child("location")
+                                        .child("record")
                                         .orderByChild("name")
                                         .startAt(str)
                                         .endAt(str + "\uf8ff"),

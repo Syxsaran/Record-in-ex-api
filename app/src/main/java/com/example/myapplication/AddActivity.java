@@ -104,7 +104,7 @@ public class AddActivity extends AppCompatActivity {
         map.put("type", spinnerType.getSelectedItem().toString());
         map.put("amount", amountValue);
 
-        FirebaseDatabase.getInstance().getReference().child("location").push()
+        FirebaseDatabase.getInstance().getReference().child("record").push()
                 .setValue(map)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
