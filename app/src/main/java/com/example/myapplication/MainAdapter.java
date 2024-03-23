@@ -109,14 +109,14 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Toast.makeText(holder.name.getContext(), "Data Update Successfully", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(holder.name.getContext(), "Data Update Success", Toast.LENGTH_SHORT).show();
                                         dialogPlus.dismiss();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(Exception e) {
-                                        Toast.makeText(holder.name.getContext(), "Error Update", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(holder.name.getContext(), "Error Data Update", Toast.LENGTH_SHORT).show();
                                         dialogPlus.dismiss();
                                     }
                                 });
@@ -129,18 +129,19 @@ public class MainAdapter extends FirebaseRecyclerAdapter<MainModel,MainAdapter.m
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(holder.name.getContext());
-                builder.setTitle("Are You Sure?");
-                builder.setMessage("Deleted");
+                builder.setTitle("Want to delete?");
+                builder.setMessage("Are you sure to delete the selected items?");
 
-                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         FirebaseDatabase.getInstance().getReference().child("location")
                                 .child(getRef(position).getKey()).removeValue();
+                        Toast.makeText(holder.name.getContext(), "Deleted", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(holder.name.getContext(), "Canceled", Toast.LENGTH_SHORT).show();
